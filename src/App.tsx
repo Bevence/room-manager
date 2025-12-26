@@ -15,6 +15,7 @@ import BillFormPage from "./pages/BillFormPage";
 import BillDetailPage from "./pages/BillDetailPage";
 import MeterReadingPage from "./pages/MeterReadingPage";
 import SettingsPage from "./pages/SettingsPage";
+import InstallPage from "./pages/InstallPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/bills/meter" element={<MeterReadingPage />} />
           <Route path="/bills/:id" element={<BillDetailPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/install" element={<InstallPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
