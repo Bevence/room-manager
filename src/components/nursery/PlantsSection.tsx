@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -150,92 +151,98 @@ export const PlantsSection = () => {
               onMouseLeave={() => setHoveredId(null)}
               className="group"
             >
-              <div className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-500 border border-border/50">
-                {/* Image */}
-                <div className="relative aspect-square overflow-hidden">
-                  <motion.img
-                    src={plant.image}
-                    alt={plant.name}
-                    className="w-full h-full object-cover"
-                    animate={{
-                      scale: hoveredId === plant.id ? 1.1 : 1,
-                    }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  
-                  {/* Overlay Actions */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: hoveredId === plant.id ? 1 : 0 }}
-                    className="absolute inset-0 bg-foreground/20 flex items-center justify-center gap-3"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-full bg-card flex items-center justify-center shadow-md hover:bg-primary hover:text-primary-foreground transition-colors"
+              <Link to={`/plants/${plant.id}`}>
+                <div className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-lg transition-all duration-500 border border-border/50">
+                  {/* Image */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <motion.img
+                      src={plant.image}
+                      alt={plant.name}
+                      className="w-full h-full object-cover"
+                      animate={{
+                        scale: hoveredId === plant.id ? 1.1 : 1,
+                      }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    
+                    {/* Overlay Actions */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: hoveredId === plant.id ? 1 : 0 }}
+                      className="absolute inset-0 bg-foreground/20 flex items-center justify-center gap-3"
                     >
-                      <Eye className="w-4 h-4" />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-full bg-card flex items-center justify-center shadow-md hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
-                      <Heart className="w-4 h-4" />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md"
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                    </motion.button>
-                  </motion.div>
-
-                  {/* Badge */}
-                  {plant.badge && (
-                    <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground">
-                      {plant.badge}
-                    </Badge>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-5">
-                  <div className="flex items-center gap-1 mb-2">
-                    {"★".repeat(5).split("").map((_, i) => (
-                      <span
-                        key={i}
-                        className={`text-sm ${
-                          i < Math.floor(plant.rating)
-                            ? "text-accent"
-                            : "text-muted"
-                        }`}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.preventDefault()}
+                        className="w-10 h-10 rounded-full bg-card flex items-center justify-center shadow-md hover:bg-primary hover:text-primary-foreground transition-colors"
                       >
-                        ★
-                      </span>
-                    ))}
-                    <span className="text-sm text-muted-foreground ml-1">
-                      ({plant.rating})
-                    </span>
+                        <Eye className="w-4 h-4" />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.preventDefault()}
+                        className="w-10 h-10 rounded-full bg-card flex items-center justify-center shadow-md hover:bg-primary hover:text-primary-foreground transition-colors"
+                      >
+                        <Heart className="w-4 h-4" />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.preventDefault()}
+                        className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                      </motion.button>
+                    </motion.div>
+
+                    {/* Badge */}
+                    {plant.badge && (
+                      <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground">
+                        {plant.badge}
+                      </Badge>
+                    )}
                   </div>
-                  <h3 className="font-semibold text-lg mb-1">{plant.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    {plant.category}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-primary">
-                      ${plant.price}
-                    </span>
-                    <Button
-                      size="sm"
-                      className="rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
-                    >
-                      Add to Cart
-                    </Button>
+
+                  {/* Content */}
+                  <div className="p-5">
+                    <div className="flex items-center gap-1 mb-2">
+                      {"★".repeat(5).split("").map((_, i) => (
+                        <span
+                          key={i}
+                          className={`text-sm ${
+                            i < Math.floor(plant.rating)
+                              ? "text-accent"
+                              : "text-muted"
+                          }`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                      <span className="text-sm text-muted-foreground ml-1">
+                        ({plant.rating})
+                      </span>
+                    </div>
+                    <h3 className="font-semibold text-lg mb-1">{plant.name}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {plant.category}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-bold text-primary">
+                        ${plant.price}
+                      </span>
+                      <Button
+                        size="sm"
+                        className="rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        Add to Cart
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
